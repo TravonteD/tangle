@@ -1,0 +1,14 @@
+#!/bin/sh
+
+input_file="$1"
+output_file="$2"
+language="$3"
+default_pattern='^```'
+
+if [ -n "$language" ];
+then
+  pattern="^\`\`\`$language"
+else
+  pattern="$default_pattern"
+fi
+sed -n "/$pattern/,/$default_pattern/p" "$input_file" | sed "/$default_pattern/d" > "$output_file"
